@@ -19,7 +19,8 @@ type Goly struct {
 
 func Setup() {
 
-	dsn := os.Getenv("DSN")
+	// dsn := os.Getenv("DSN")
+	dsn := "postgres://admin:test@" + os.Getenv("DB_HOST") + ":5432/admin?sslmode=disable"
 	var err error
 	db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {

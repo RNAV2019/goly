@@ -1,0 +1,29 @@
+services:
+  db:
+    image: postgres:16beta2
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: test
+    volumes:
+      - ./data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./backend
+    restart: always
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+
+  frontend:
+    build:
+      context: ./frontend
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
