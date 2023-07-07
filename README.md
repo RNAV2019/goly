@@ -29,7 +29,7 @@ To run Goly locally, ensure that you have the following installed:
 - Go: [Installation Guide](https://golang.org/doc/install)
 - PostgreSQL: [Installation Guide](https://www.postgresql.org/download/)
 
-## Getting Started
+## Getting Started locally
 
 Follow the steps below to get Goly up and running on your local machine:
 
@@ -69,13 +69,60 @@ Follow the steps below to get Goly up and running on your local machine:
    ```bash
    cd ../backend
    ```
-7. Start the Go backend server:
+
+7. Change directory to the model:
+
+   ```bash
+   cd model
+   ```
+8. Edit model.go:
+   ```go
+   // Uncomment the getenv dsn string
+   dsn := os.Getenv("DSN")
+
+   // And comment out the other dsn string
+   // dsn := "postgres://admin:test@" + os.Getenv("DB_HOST") + ":5432/admin?sslmode=disable"
+
+   ```
+9. Change directory back to the backend folder
+   ```bash
+   cd ..
+   ```
+
+8. Start the Go backend server:
    
    ```bash
    go run main.go
    ```
 
-The backend server will be available at http://localhost:3000.
+Ensure you create your own .env file with your connection string.
+The API endpoints will be available at http://localhost:3000.
+
+## Getting Started using Docker
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/RNAV2019/goly.git
+   ```
+
+2. Change into the project directory.
+
+   ```bash
+   cd goly
+   ```
+3. Build the docker-compose file (make sure docker daemon is running):
+
+   ```bash
+   docker-compose build
+   ```
+4. Build the docker-compose file in detached mode:
+
+   ```bash
+   docker-compose up -d
+   ```
+
+The Svelte Website will be available at http://localhost:8080.
+The API endpoints will be available at http://localhost:3000.
 
 ## Configuration
 
