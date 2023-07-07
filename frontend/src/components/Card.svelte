@@ -4,6 +4,8 @@
 	import { refetchData } from '../utils/store';
 	import UpdateModal from './UpdateModal.svelte';
 	import { PUBLIC_DB, PUBLIC_WS } from '$env/static/public';
+	import { ArrowUpRightSquare, Globe, Hash } from 'lucide-svelte';
+	import Button from './Button.svelte';
 	export let goly: Goly;
 	let showModal: boolean = false;
 
@@ -43,19 +45,37 @@
 	});
 </script>
 
-<div class="rounded-xl bg-teal-300 text-teal-900 py-12 px-10 font-bold text-lg">
-	<p>URL: {PUBLIC_DB}r/{goly.url}</p>
-	<p>Redirects to: {goly.redirect}</p>
-	<p>Clicked: {goly.clicked}</p>
-	<div class="flex flex-row gap-4 mt-3 text-base font-medium">
-		<button
-			class="px-4 py-2 bg-blue-300 text-blue-800 rounded-xl hover:bg-blue-400 hover:text-blue-900 transition-colors"
-			on:click={() => (showModal = true)}>Update</button
-		>
-		<button
-			class="px-4 py-2 bg-red-300 text-red-800 rounded-xl hover:bg-red-400 hover:text-red-900 transition-colors"
-			on:click={() => deleteGoly(goly.id)}>Delete</button
-		>
+<div
+	class="h-52 rounded-lg bg-gray-100 text-black dark:bg-secondary dark:text-white p-5 flex flex-col justify-between w-full"
+>
+	<div class="flex flex-col gap-4">
+		<div class="flex flex-row gap-2 items-center">
+			<Globe size={16} class="flex-shrink-0" />
+			<a
+				href={`${PUBLIC_DB}r/${goly.url}`}
+				target="_blank"
+				class="text-base text-ellipsis whitespace-nowrap overflow-hidden hover:underline hover:cursor-pointer flex-grow"
+			>
+				{PUBLIC_DB}r/{goly.url}
+			</a>
+		</div>
+		<div class="flex flex-row gap-2 items-center">
+			<ArrowUpRightSquare size={16} class="flex-shrink-0" />
+			<a
+				href={goly.redirect}
+				target="_blank"
+				class="text-base text-ellipsis whitespace-nowrap overflow-hidden hover:underline hover:cursor-pointer flex-grow"
+				>{goly.redirect}</a
+			>
+		</div>
+		<div class="flex flex-row gap-2 items-center">
+			<Hash size={16} class="flex-shrink-0" />
+			<h3 class="text-base">{goly.clicked} {goly.clicked === 1 ? 'time' : 'times'}</h3>
+		</div>
+	</div>
+	<div class="flex flex-row gap-3">
+		<Button onClickHandler={() => (showModal = true)}>Update</Button>
+		<Button onClickHandler={() => deleteGoly(goly.id)}>Delete</Button>
 	</div>
 </div>
 <UpdateModal show={showModal} title={'Update Goly'} on:close={handleClose} {updateGoly} {goly} />

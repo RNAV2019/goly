@@ -22,7 +22,6 @@ func websocketHandler(c *websocket.Conn) {
 	for {
 		_, msg, err := c.ReadMessage()
 		if err != nil {
-			log.Println("WebSocket read failed:", err)
 			delete(clients, c)
 			break
 		}

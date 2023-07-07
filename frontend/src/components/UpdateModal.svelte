@@ -2,6 +2,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import type { Goly, updateFieldsType } from '../utils/helper';
 	import TemplateModal from './TemplateModal.svelte';
+	import Button from './Button.svelte';
 	const dispatch = createEventDispatcher();
 	export let show: boolean = true;
 	const close = () => {
@@ -43,7 +44,7 @@
 				name="redirect"
 				id="redirect"
 				bind:value={goly.redirect}
-				class="flex-grow p-1 px-2 ml-1 border-2 border-teal-300 outline-none focus:outline-none active:outline-none rounded-lg"
+				class="flex-grow p-1 px-2 ml-1 border-2 border-primary bg-transparent outline-none focus:outline-none active:outline-none rounded-lg"
 			/>
 		</div>
 		<h4 class="text-red-400 font-bold text-sm">{redirectInputError}</h4>
@@ -54,21 +55,14 @@
 				name="url"
 				id="url"
 				bind:value={goly.url}
-				class="flex-grow p-1 px-2 ml-1 border-2 border-teal-300 outline-none focus:outline-none active:outline-none rounded-lg"
+				class="flex-grow p-1 px-2 ml-1 border-2 border-primary bg-transparent outline-none focus:outline-none active:outline-none rounded-lg"
 				maxlength={8}
 			/>
 		</div>
 		<h4 class="text-red-400 font-bold text-sm">{urlInputError}</h4>
 		<div class="flex justify-end gap-3">
-			<button
-				class="px-4 py-2 bg-blue-300 text-blue-800 rounded-xl hover:bg-blue-400 hover:text-blue-900 transition-colors"
-				on:click={update}>Update</button
-			>
-
-			<button
-				class="px-4 py-2 bg-red-300 text-red-800 rounded-xl hover:bg-red-400 hover:text-red-900 transition-colors"
-				on:click={close}>Close</button
-			>
+			<Button onClickHandler={update}>Update</Button>
+			<Button onClickHandler={close}>Close</Button>
 		</div>
 	</TemplateModal>
 {/if}

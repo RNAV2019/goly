@@ -2,11 +2,14 @@
 	import { createEventDispatcher } from 'svelte';
 	import type { createFieldsType } from '../utils/helper';
 	import TemplateModal from './TemplateModal.svelte';
+	import Button from './Button.svelte';
 
 	const dispatch = createEventDispatcher();
 	export let show: boolean = true;
 	const close = () => {
 		show = false;
+		redirect = '';
+		redirectInputError = '';
 		dispatch('close');
 	};
 	export let createGoly: (data: createFieldsType) => void;
@@ -26,6 +29,8 @@
 			};
 			createGoly(createFields);
 			close();
+		} else {
+			redirectInputError = 'Enter a URL to shorten';
 		}
 	};
 </script>
@@ -39,20 +44,13 @@
 				name="redirect"
 				id="redirect"
 				bind:value={redirect}
-				class="flex-grow p-1 px-2 ml-1 border-2 border-teal-300 outline-none focus:outline-none active:outline-none rounded-lg"
+				class="flex-grow p-1 px-2 ml-1 border-2 border-primary bg-transparent outline-none focus:outline-none active:outline-none rounded-lg"
 			/>
 		</div>
 		<h4 class="text-red-400 font-bold text-sm">{redirectInputError}</h4>
 		<div class="flex justify-end gap-3">
-			<button
-				class="px-4 py-2 bg-green-300 text-green-800 rounded-xl hover:bg-green-400 hover:text-green-900 transition-colors"
-				on:click={create}>Create</button
-			>
-
-			<button
-				class="px-4 py-2 bg-red-300 text-red-800 rounded-xl hover:bg-red-400 hover:text-red-900 transition-colors"
-				on:click={close}>Close</button
-			>
+			<Button onClickHandler={create}>Create</Button>
+			<Button onClickHandler={close}>Close</Button>
 		</div>
 	</TemplateModal>
 {/if}

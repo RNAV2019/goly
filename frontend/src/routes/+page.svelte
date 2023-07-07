@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { PUBLIC_DB } from '$env/static/public';
+	import Button from '../components/Button.svelte';
 	import CreateModal from '../components/CreateModal.svelte';
 	import List from '../components/List.svelte';
 	import type { createFieldsType } from '../utils/helper';
@@ -22,11 +23,11 @@
 
 <main class="flex flex-col gap-6">
 	<div class="flex flex-row justify-between">
-		<h1 class="text-2xl font-bold">Goly -- The Go URL Shortener!</h1>
-		<button
-			class="px-4 py-2 bg-green-300 text-green-800 rounded-lg hover:bg-green-400 hover:text-green-900 transition-colors"
-			on:click={() => (showModal = true)}>Create</button
-		>
+		<h1 class="text-2xl font-bold flex flex-row items-center gap-2">
+			Goly <div class="w-4 h-1 bg-black dark:bg-white mt-1" />
+			The Go URL Shortener!
+		</h1>
+		<Button onClickHandler={() => (showModal = true)}>Create</Button>
 	</div>
 	<List />
 	<CreateModal show={showModal} title={'Create Goly'} on:close={handleClose} {createGoly} />

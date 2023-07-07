@@ -10,8 +10,14 @@
 		const data = (await res.json()) as Goly[];
 		golies.set(data);
 	});
+
+	$: values = $golies.sort((a, b) => {
+		return a.id! - b.id!;
+	});
 </script>
 
-{#each $golies as goly (goly.id)}
-	<Card {goly} />
-{/each}
+<div class="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
+	{#each values as goly (goly.id)}
+		<Card {goly} />
+	{/each}
+</div>
